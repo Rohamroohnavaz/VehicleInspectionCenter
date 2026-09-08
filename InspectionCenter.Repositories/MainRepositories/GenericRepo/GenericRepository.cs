@@ -1,8 +1,10 @@
 ﻿using InspectionCenter.Domain.Entities.Abstraction;
 using InspectionCenter.Infrastructure.Context;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -17,29 +19,61 @@ namespace InspectionCenter.Repositories.MainRepositories.GenericRepo
             _dbContext = dbContext;
         }
 
-        public Task AddAsync(T item)
+        public async Task AddAsync(T item)
         {
-            throw new NotImplementedException();
+            await _dbContext.AddAsync(item);
+            await _dbContext.SaveChangesAsync();
         }
 
-        public Task DeleteAsync(Guid id)
+        public async Task<T?> GetByIdAsync(Guid id)
         {
-            throw new NotImplementedException();
+            var query = _dbContext.Set<T>()
+                .AsQueryable().Where(x => x.IsDeleted == false);
+
+            return await query.FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public Task<List<T>> GetAllAsync()
+        public async Task<List<T>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await _dbContext.Set<T>().AsNoTracking().ToListAsync();
         }
 
-        public Task<T> GetByIdAsync(Guid id)
+        public async Task<List<T>> QueryAsync(Expression<Func<T, bool>> predicate, bool tracking = false)
         {
-            throw new NotImplementedException();
+            var query = _dbContext.Set<T>().AsQueryable();
+
+            if (!tracking)
+                query = query.AsNoTracking();
+
+            return await query.ToListAsync();
+
         }
 
-        public Task UpdateAsync(Guid id)
+        public async Task UpdateAsync(Guid id)
         {
-            throw new NotImplementedException();
+            _dbContext.Update(id);
+            await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task SoftDeleteAsync(Guid id)
+        {
+            var entity = await GetByIdAsync(id);
+
+            if (entity is null)
+                return;
+
+            entity.SetDelete(id);
+            await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task HardDeleteAsync(Guid id)
+        {
+            var entity = await GetByIdAsync(id);
+
+            if(entity is null) return;
+
+            _dbContext.Set<T>().Remove(entity);
+            await _dbContext.SaveChangesAsync();
         }
     }
 }
