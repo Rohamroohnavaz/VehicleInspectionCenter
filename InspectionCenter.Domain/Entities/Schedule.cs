@@ -25,7 +25,7 @@ namespace InspectionCenter.Domain.Entities
         public int ReservedCount { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
-        public VehicleInspectionCenter Centers{ get; private set; }
+        public VehicleInspectionCenter Center { get; private set; }
         public Guid CenterId { get; set; }
         public List<Appointment> Appointments { get; set; } = new();
 

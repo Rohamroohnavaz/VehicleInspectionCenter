@@ -29,9 +29,9 @@ namespace InspectionCenter.Domain.Entities
         public string ChassisNumber { get; private set; }
         public string PlateNumber { get; private set; }
         public bool IsActive { get; private set; } = true;
-        public VehicleInspectionCenter VehicleInspectionCenter { get; private set; }
         public User Owner { get; private set; }
         public Guid OwnerId { get; private set; }
+        public List<Appointment> Appointments { get; set; } = new();
 
         public override void Validate()
         {

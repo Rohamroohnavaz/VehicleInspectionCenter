@@ -29,7 +29,6 @@ namespace InspectionCenter.Domain.Entities
         public bool? IsPassed { get; private set; }
         public Car Car { get; private set; }
         public Guid CarId { get; private set; }
-        public User Client { get; private set; }
         public Schedule? Schedule { get; private set; }
         public Guid? ScheduleId { get; private set; }
         public DateTime ExpireTime { get; private set; }
