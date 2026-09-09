@@ -8,12 +8,8 @@ using System.Threading.Tasks;
 
 namespace InspectionCenter.Repositories.RepositoryInterface
 {
-    public interface IAppointmentRepository : IGenericRepository<Appointment>
+    public interface IProvinceRepository : IGenericRepository<Province>
     {
-        Task<List<Appointment>> GetActiveAppointmentsAsync();
-
-        Task<Appointment?> GetAppointmentByCarIdAsync(Guid carId);
-
-        Task<Appointment?> GetAppointmentByScheduleIdAsync(Guid scheduleId);
+        Task<Province?> FindByProvinceNameAsync(string provinceName);
     }
 }

@@ -11,28 +11,28 @@ using System.Threading.Tasks;
 
 namespace InspectionCenter.Repositories.MainRepositories
 {
-    public class CenterRepository : GenericRepository<VehicleInspectionCenter>, ICenterRepository
+    public class CityRepository : GenericRepository<City>, ICityRepository
     {
         private readonly InspectionDbContext _dbContext;
 
-        public CenterRepository(InspectionDbContext dbContext) : base(dbContext)
+        public CityRepository(InspectionDbContext dbContext) : base(dbContext)
         {
             _dbContext = dbContext;
         }
 
-        public async Task<List<VehicleInspectionCenter>> GetActiveCentersAsync()
+        public async Task<List<City>> GetCitiesByProvinceIdAsync(Guid provinceId)
         {
-            return await _dbContext.Centers
-                .AsQueryable()
-                .Where(c => c.IsActive == true)
+            return await _dbContext.Cities
+                .Where(c => c.ProvinceId == provinceId)
+                .OrderByDescending(c => c.CityName)
                 .ToListAsync();
         }
 
-        public async Task<VehicleInspectionCenter?> GetCenterByCityId(Guid cityId)
+        public async Task<City?> GetCityByNameAsync(string cityName)
         {
-            return await _dbContext.Centers
+            return await _dbContext.Cities
                 .AsNoTracking()
-                .FirstOrDefaultAsync(c => c.CityId == cityId);
+                .FirstOrDefaultAsync(c => c.CityName == cityName);
         }
     }
 }

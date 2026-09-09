@@ -53,6 +53,9 @@ namespace InspectionCenter.Domain.Entities
 
             if (string.IsNullOrWhiteSpace(Report))
                 throw new NullPropException("Report can't be null !");
+
+            if (EndOfWorkTime >= StartOfWorkTime)
+                throw new Exception("Logical Error !!");
         }
     }
 }
