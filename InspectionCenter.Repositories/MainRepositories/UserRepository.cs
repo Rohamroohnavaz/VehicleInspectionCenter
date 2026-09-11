@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,11 +15,14 @@ namespace InspectionCenter.Repositories.MainRepositories
 {
     public class UserRepository : GenericRepository<User>, IUserRepository
     {
-        private readonly InspectionDbContext _dbContext;
-
         public UserRepository(InspectionDbContext dbContext) : base(dbContext)
         {
-            _dbContext = dbContext;
+        }
+
+        public async Task AddCarsAsync(Task<Car?> car)
+        {
+            await _dbContext.AddAsync(car);
+            await _dbContext.SaveChangesAsync();
         }
 
         public async Task<bool> ExistUserByEmailAsync(string email)
@@ -54,6 +58,21 @@ namespace InspectionCenter.Repositories.MainRepositories
                 .FirstOrDefaultAsync(x => x.PhoneNumber == phoneNumber);
             
             return user;
+        }
+
+        public async Task<List<Appointment>> GetActiveAppointmentsAsync()
+        {
+            var activeAppointments = await _dbContext.Appointments
+                .AsNoTracking()
+                .Where(a => a.Status.ToString() == Status.Active.ToString()
+                    && a.IsDeleted == false
+                    && a.IsPassed == true)
+                .ToListAsync();
+
+            if (activeAppointments is null)
+                throw new ArgumentNullException("Active appointments not found !");
+
+            return activeAppointments;
         }
 
         public async Task<List<User>> GetAllUsersAsync()

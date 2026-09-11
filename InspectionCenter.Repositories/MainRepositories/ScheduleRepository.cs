@@ -13,16 +13,14 @@ namespace InspectionCenter.Repositories.MainRepositories
 {
     public class ScheduleRepository : GenericRepository<Schedule>, IScheduleRepository
     {
-        private readonly InspectionDbContext _dbContext;
-
         public ScheduleRepository(InspectionDbContext dbContext) : base(dbContext)
         {
-            _dbContext = dbContext;
         }
 
         public async Task<List<Schedule>> GetSchedulsByCenterId(Guid centerId)
         {
             return await _dbContext.Schedules
+                .AsNoTracking()
                 .Where(s => s.CenterId == centerId)
                 .OrderByDescending(s => s.EndTime)
                 .ToListAsync();

@@ -13,11 +13,8 @@ namespace InspectionCenter.Repositories.MainRepositories
 {
     public class CityRepository : GenericRepository<City>, ICityRepository
     {
-        private readonly InspectionDbContext _dbContext;
-
         public CityRepository(InspectionDbContext dbContext) : base(dbContext)
         {
-            _dbContext = dbContext;
         }
 
         public async Task<List<City>> GetCitiesByProvinceIdAsync(Guid provinceId)

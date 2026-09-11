@@ -34,6 +34,7 @@ namespace InspectionCenter.Domain.Entities
         public DateTime ExpireTime { get; private set; }
         public DateTime? CompeletedAt { get; private set; }
         public Status Status { get; set; } = Status.Active;
+        public ReserveStatus ReserveStatus { get; set; }
 
         public override void Validate()
         {

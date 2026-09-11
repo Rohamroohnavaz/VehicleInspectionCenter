@@ -14,11 +14,8 @@ namespace InspectionCenter.Repositories.MainRepositories
 {
     public class CarRepository : GenericRepository<Car>, ICarRepository
     {
-        private readonly InspectionDbContext _dbContext;
-
         public CarRepository(InspectionDbContext dbContext) : base(dbContext)
         {
-            _dbContext = dbContext;
         }
 
         public async Task<Car?> GetCarByChassisNumberAsync(string chassisNumber)

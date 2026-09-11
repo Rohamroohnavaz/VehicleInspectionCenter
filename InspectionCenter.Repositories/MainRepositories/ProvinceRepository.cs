@@ -13,11 +13,8 @@ namespace InspectionCenter.Repositories.MainRepositories
 {
     public class ProvinceRepository : GenericRepository<Province>, IProvinceRepository
     {
-        private readonly InspectionDbContext _dbContext;
-
         public ProvinceRepository(InspectionDbContext dbContext) : base(dbContext)
         {
-            _dbContext = dbContext;
         }
 
         public async Task<Province?> FindByProvinceNameAsync(string provinceName)

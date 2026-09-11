@@ -14,11 +14,8 @@ namespace InspectionCenter.Repositories.MainRepositories
 {
     public class AppointmentRepository : GenericRepository<Appointment>, IAppointmentRepository
     {
-        private readonly InspectionDbContext _dbContext;
-
         public AppointmentRepository(InspectionDbContext dbContext) : base(dbContext)
         {
-            _dbContext = dbContext;
         }
 
         public async Task<List<Appointment>> GetActiveAppointmentsAsync()

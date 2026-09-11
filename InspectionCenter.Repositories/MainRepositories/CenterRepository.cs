@@ -13,11 +13,8 @@ namespace InspectionCenter.Repositories.MainRepositories
 {
     public class CenterRepository : GenericRepository<VehicleInspectionCenter>, ICenterRepository
     {
-        private readonly InspectionDbContext _dbContext;
-
         public CenterRepository(InspectionDbContext dbContext) : base(dbContext)
         {
-            _dbContext = dbContext;
         }
 
         public async Task<List<VehicleInspectionCenter>> GetActiveCentersAsync()

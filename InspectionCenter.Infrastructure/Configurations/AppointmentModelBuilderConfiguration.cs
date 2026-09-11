@@ -31,6 +31,10 @@ namespace InspectionCenter.Infrastructure.Configurations
                 .HasConversion<int>()
                 .IsRequired();
 
+            builder.Property(a => a.ReserveStatus)
+                .HasConversion<int>()
+                .IsRequired();
+
             builder.HasOne(a => a.Schedule)
                 .WithMany(s => s.Appointments)
                 .HasForeignKey(a => a.ScheduleId)

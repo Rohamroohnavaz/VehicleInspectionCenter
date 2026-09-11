@@ -12,7 +12,7 @@ namespace InspectionCenter.Repositories.MainRepositories.GenericRepo
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
     {
-        private readonly InspectionDbContext _dbContext;
+        protected readonly InspectionDbContext _dbContext;
 
         public GenericRepository(InspectionDbContext dbContext)
         {
