@@ -6,4 +6,10 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="MainServices\" />
+    <Folder Include="ServiceDtos\" />
+    <Folder Include="ServiceInterfaces\" />
+  </ItemGroup>
+
 </Project>
