@@ -1,5 +1,6 @@
 ﻿using InspectionCenter.Domain.DomainExceptions;
 using InspectionCenter.Domain.Entities.Abstraction;
+using InspectionCenter.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +33,31 @@ namespace InspectionCenter.Domain.Entities
         public User Owner { get; private set; }
         public Guid OwnerId { get; private set; }
         public List<Appointment> Appointments { get; set; } = new();
+
+        public void SetCarName(string carName)
+        {
+            CarName = CarName;
+        }
+
+        public void SetCarModel(string carModel)
+        {
+            CarModel = carModel;
+        }
+
+        public void SetChassisNumber(string chassisNumber)
+        {
+            ChassisNumber = chassisNumber;
+        }
+
+        public void SetId(Guid id)
+        {
+            Id = id;
+        }
+        
+        public void SetIsActive()
+        {
+            IsActive = true;
+        }
 
         public override void Validate()
         {

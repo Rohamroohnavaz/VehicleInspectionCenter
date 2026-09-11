@@ -11,6 +11,8 @@ namespace InspectionCenter.Repositories.RepositoryInterface
 {
     public interface ICarRepository : IGenericRepository<Car>
     {
+        Task<bool> ExistCarByChassisNumber(string chassisNumber);
+
         Task<List<CarDto>> GetCarsAsync();
         
         Task<Car?> GetCarByOwnerIdAsync(Guid ownerId);

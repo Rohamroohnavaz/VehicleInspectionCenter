@@ -10,6 +10,10 @@ namespace InspectionCenter.Repositories.RepositoryInterface
 {
     public interface IUserRepository : IGenericRepository<User>
     {
+        Task<Guid> RegisterUser(string email, string password, string phoneNumber);
+
+        Task<Car?> AddCarWithChassisNumberAsync(string chassisNumber);
+
         Task<User> FindByNameAsync(string firstName);
 
         Task<User?> FindByPhoneNumberAsync(string phoneNumber);
@@ -22,8 +26,10 @@ namespace InspectionCenter.Repositories.RepositoryInterface
 
         Task<List<User>> GetAllUsersAsync();
 
-        Task AddCarsAsync(Task<Car?> car);
+        Task AddCarsAsync(Car? car);
 
         Task<List<Appointment>> GetActiveAppointmentsAsync();
+
+        Task<List<Province>> GetSpecificProvincesAsync();
     }
 }

@@ -9,12 +9,8 @@ using System.Threading.Tasks;
 
 namespace InspectionCenter.Application.ServiceInterfaces
 {
-    public interface IUserService
+    public interface ICarService
     {
-        Task AppointmentPipeline();
-
-        Task<Car?> AddCarsByChassisNumberAsync(string chassisNumber);
-
-        //Task<List<CarDto>> GetUserCarsByNameAsync(string firstName);
+        Task AddCarWithChassisNumber(AddCarDto dto, Guid userId);
     }
 }

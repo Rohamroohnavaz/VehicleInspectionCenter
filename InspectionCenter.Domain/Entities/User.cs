@@ -13,10 +13,10 @@ namespace InspectionCenter.Domain.Entities
     {
         public User()
         {
-            
+
         }
 
-        public User(string firstName ,string lastName ,string email ,string password ,int age)
+        public User(string firstName, string lastName, string phoneNumber, string email, string password, int age)
         {
             FirstName = firstName;
             LastName = lastName;
@@ -38,6 +38,21 @@ namespace InspectionCenter.Domain.Entities
         public void SetRole(Role role)
         {
             UserRole = role;
+        }
+
+        public void SetEmail(string email)
+        {
+            Email = email;
+        }
+
+        public void SetPassword(string password)
+        {
+            Password = password;
+        }
+
+        public void SetPhoneNumber(string phoneNumber)
+        {
+            PhoneNumber = phoneNumber;
         }
 
         public override void Validate()

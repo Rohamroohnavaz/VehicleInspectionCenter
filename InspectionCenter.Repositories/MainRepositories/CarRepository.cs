@@ -18,6 +18,13 @@ namespace InspectionCenter.Repositories.MainRepositories
         {
         }
 
+        public async Task<bool> ExistCarByChassisNumber(string chassisNumber)
+        {
+            return await _dbContext.Cars
+                .AsNoTracking()
+                .AnyAsync(c => c.ChassisNumber == chassisNumber);
+        }
+
         public async Task<Car?> GetCarByChassisNumberAsync(string chassisNumber)
         {
             return await _dbContext.Cars

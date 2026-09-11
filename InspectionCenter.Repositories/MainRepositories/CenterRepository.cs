@@ -31,5 +31,13 @@ namespace InspectionCenter.Repositories.MainRepositories
                 .AsNoTracking()
                 .FirstOrDefaultAsync(c => c.CityId == cityId);
         }
+
+        public async Task<List<VehicleInspectionCenter>> GetCentersByCityId(Guid cityId)
+        {
+            return await _dbContext.Centers
+                .AsNoTracking()
+                .Where(c => c.CityId == cityId && c.IsActive == true)
+                .ToListAsync();
+        }
     }
 }

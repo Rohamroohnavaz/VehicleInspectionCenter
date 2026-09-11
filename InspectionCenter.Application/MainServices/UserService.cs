@@ -1,5 +1,7 @@
 ﻿using InspectionCenter.Application.ServiceDtos;
 using InspectionCenter.Application.ServiceInterfaces;
+using InspectionCenter.Domain.Entities;
+using InspectionCenter.Repositories.RepoDtos;
 using InspectionCenter.Repositories.RepositoryInterface;
 using System;
 using System.Collections.Generic;
@@ -20,9 +22,24 @@ namespace InspectionCenter.Application.MainServices
             _provinceRepository = provinceRepository;
         }
 
-        public Task AppointmentPipeline()
+        public async Task<Car?> AddCarsByChassisNumberAsync(string chassisNumber)
         {
-            throw new NotImplementedException();
+            var newCar = await _userRepository.AddCarWithChassisNumberAsync(chassisNumber);
+            await _userRepository.AddCarsAsync(newCar);
+
+            return newCar;
         }
+
+        public async Task AppointmentPipeline()
+        {
+            var provinces = await _userRepository.GetSpecificProvincesAsync();
+
+
+        }
+
+        //public Task<List<CarDto>> GetUserCarsByNameAsync(string firstName)
+        //{
+
+        //}
     }
 }
