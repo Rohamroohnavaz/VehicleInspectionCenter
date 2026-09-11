@@ -42,6 +42,13 @@ namespace InspectionCenter.Repositories.MainRepositories
                 .FirstOrDefaultAsync(c => c.PlateNumber == plateNumber);
         }
 
+        public async Task<int> GetCarCountAsync(Guid ownerId)
+        {
+            return await _dbContext.Cars
+                .AsNoTracking()
+                .CountAsync(c => c.OwnerId == ownerId);
+        }
+
         public async Task<List<CarDto>> GetCarsAsync()
         {
             return await _dbContext.Cars.Select(c => new CarDto

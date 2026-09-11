@@ -18,5 +18,7 @@ namespace InspectionCenter.Repositories.RepositoryInterface
         Task<Car?> GetCarByChassisNumberAsync(string chassisNumber);
 
         Task<Car?> GetCarByPlateNumberAsync(string plateNumber);
+
+        Task<int> GetCarCountAsync(Guid ownerId);
     }
 }
