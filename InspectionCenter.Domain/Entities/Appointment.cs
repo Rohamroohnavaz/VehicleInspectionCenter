@@ -13,13 +13,18 @@ namespace InspectionCenter.Domain.Entities
     {
         public Appointment()
         {
-            
+
         }
 
-        public Appointment(string resultText, int capacity, DateTime expireTime)
+        public Appointment(string resultText, int capacity, Car car, Guid carId, 
+            Schedule schedule, Guid scheduleId, DateTime expireTime)
         {
             ResultText = resultText;
             Capacity = capacity;
+            Car = car;
+            CarId = carId;
+            Schedule = schedule;
+            ScheduleId = scheduleId;
             ExpireTime = expireTime;
             Validate();
         }

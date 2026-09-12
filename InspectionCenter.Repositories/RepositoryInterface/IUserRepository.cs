@@ -1,5 +1,7 @@
 ﻿using InspectionCenter.Domain.Entities;
 using InspectionCenter.Repositories.MainRepositories.GenericRepo;
+using InspectionCenter.Repositories.RepoDtos;
+using Microsoft.EntityFrameworkCore.SqlServer.Query.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +12,7 @@ namespace InspectionCenter.Repositories.RepositoryInterface
 {
     public interface IUserRepository : IGenericRepository<User>
     {
-        Task<Guid> RegisterUser(string email, string password, string phoneNumber);
+        //Task<Guid> RegisterUser(string email, string password, string phoneNumber);
 
         Task<Car?> AddCarWithChassisNumberAsync(string chassisNumber);
 
@@ -22,14 +24,18 @@ namespace InspectionCenter.Repositories.RepositoryInterface
 
         Task<bool> ExistUserByPasswordAsync(string password);
 
+        Task<bool> ExistUserByPhoneNumberAsync(string phoneNumber);
+
         Task<List<User>> GetUsersByRoleAsync(string userRole);
 
-        Task<List<User>> GetAllUsersAsync();
+        Task<List<UserInfoDto>> GetAllUsersAsync();
 
         Task AddCarsAsync(Car? car);
 
         Task<List<Appointment>> GetActiveAppointmentsAsync();
 
         Task<List<Province>> GetSpecificProvincesAsync();
+
+        Task<List<VehicleInspectionCenter>> GetActiveAndAvailableCentersAsync();
     }
 }

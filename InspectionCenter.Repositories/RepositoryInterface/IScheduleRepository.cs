@@ -10,6 +10,6 @@ namespace InspectionCenter.Repositories.RepositoryInterface
 {
     public interface IScheduleRepository : IGenericRepository<Schedule>
     {
-        Task<List<Schedule>> GetSchedulsByCenterId(Guid centerId);
+        Task<List<Schedule>> GetSchedulsByCenterIdAsync(Guid centerId);
     }
 }

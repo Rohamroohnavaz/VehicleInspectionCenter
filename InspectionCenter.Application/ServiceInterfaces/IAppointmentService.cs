@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InspectionCenter.Application.ServiceDtos;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,8 @@ namespace InspectionCenter.Application.ServiceInterfaces
 {
     public interface IAppointmentService
     {
-        Task<bool> ApplyAppointmentForCarAsync();
+        //Task<bool> ApplyAppointmentForCarAsync();
+
+        Task<Guid> CreateAppointmentAsync(CreateAppointmentDto dto);
     }
 }

@@ -15,7 +15,7 @@ namespace InspectionCenter.Repositories.RepositoryInterface
 
         Task<List<CarDto>> GetCarsAsync();
         
-        Task<Car?> GetCarByOwnerIdAsync(Guid ownerId);
+        Task<List<Car>> GetCarByOwnerIdAsync(Guid ownerId);
 
         Task<Car?> GetCarByChassisNumberAsync(string chassisNumber);
 

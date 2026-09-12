@@ -40,5 +40,19 @@ namespace InspectionCenter.Application.MainServices
 
             Console.WriteLine("Car Added Successfuly !");
         }
+
+        public async Task<List<CarDto>> GetCarForUserAsync(Guid ownerId)
+        {
+            var cars = await _carRepository.GetCarByOwnerIdAsync(ownerId);
+
+            return cars.Select(x => new CarDto
+            {
+                Id = x.Id,
+                CarName = x.CarName,
+                CarModel = x.CarModel,
+                ChassisNumber = x.ChassisNumber,
+                PlateNumber = x.PlateNumber,
+            }).ToList();
+        }
     }
 }

@@ -32,11 +32,13 @@ namespace InspectionCenter.Repositories.MainRepositories
                 .FirstOrDefaultAsync(c => c.ChassisNumber == chassisNumber);
         }
 
-        public async Task<Car?> GetCarByOwnerIdAsync(Guid ownerId)
+        public async Task<List<Car>> GetCarByOwnerIdAsync(Guid ownerId)
         {
             return await _dbContext.Cars
                 .AsNoTracking()
-                .FirstOrDefaultAsync(c =>  c.OwnerId == ownerId);
+                .Where(c =>  c.OwnerId == ownerId)
+                .OrderBy(c => c.CarName)
+                .ToListAsync();
         }
 
         public async Task<Car?> GetCarByPlateNumberAsync(string plateNumber)

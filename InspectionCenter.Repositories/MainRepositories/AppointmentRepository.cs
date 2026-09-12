@@ -18,6 +18,12 @@ namespace InspectionCenter.Repositories.MainRepositories
         {
         }
 
+        public async Task<bool> ExistAppointmentByCarIdAsync(Guid carId)
+        {
+            return await _dbContext.Appointments
+                .AnyAsync(a => a.CarId == carId);
+        }
+
         public async Task<List<Appointment>> GetActiveAppointmentsAsync()
         {
             return await _dbContext.Appointments

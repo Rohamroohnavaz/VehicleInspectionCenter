@@ -10,6 +10,8 @@ namespace InspectionCenter.Repositories.RepositoryInterface
 {
     public interface IAppointmentRepository : IGenericRepository<Appointment>
     {
+        Task<bool> ExistAppointmentByCarIdAsync(Guid carId);
+
         Task<List<Appointment>> GetActiveAppointmentsAsync();
 
         Task<Appointment?> GetAppointmentByCarIdAsync(Guid carId);

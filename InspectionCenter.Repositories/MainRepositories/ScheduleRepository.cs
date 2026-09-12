@@ -17,7 +17,7 @@ namespace InspectionCenter.Repositories.MainRepositories
         {
         }
 
-        public async Task<List<Schedule>> GetSchedulsByCenterId(Guid centerId)
+        public async Task<List<Schedule>> GetSchedulsByCenterIdAsync(Guid centerId)
         {
             return await _dbContext.Schedules
                 .AsNoTracking()

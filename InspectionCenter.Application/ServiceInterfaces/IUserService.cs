@@ -11,9 +11,15 @@ namespace InspectionCenter.Application.ServiceInterfaces
 {
     public interface IUserService
     {
-        Task AppointmentPipeline();
-
         Task<Car?> AddCarsByChassisNumberAsync(string chassisNumber);
+
+        Task<List<Province>> GetProvincesForUserAsync();
+
+        Task<Guid> RegisterUserAsync(CreateUserDto dto);
+
+        Task UpdateUserInfoAsync(UpdateUserDto dto, Guid id);
+
+        Task<List<ScheduleDto>> GetSchedulesWithCenterId(Guid centerId);
 
         //Task<List<CarDto>> GetUserCarsByNameAsync(string firstName);
     }
