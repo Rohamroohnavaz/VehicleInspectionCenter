@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace InspectionCenter.Application.ServiceInterfaces
 {
-    public interface IAppointmentService
+    public interface ICenterService
     {
-        Task<Guid> CreateAppointmentAsync(CreateAppointmentDto dto);
+        Task<List<CenterDto>> GetCentersByCityIdAsync(Guid cityId);
     }
 }

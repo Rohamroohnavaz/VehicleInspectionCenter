@@ -33,13 +33,14 @@ namespace InspectionCenter.Application.MainServices
                 throw new Exception("That car is already exist at this appointment !");
 
             var appointment = new Appointment
-                (request.ResultText,
-                 request.Capacity,
-                 request.Car,
-                 request.CarId,
-                 request.Schedule,
-                 request.ScheduleId,
-                 request.ExpireTime
+                (
+                  request.ResultText,
+                  request.Capacity,
+                  request.Car,
+                  request.CarId,
+                  request.Schedule,
+                  request.ScheduleId,
+                  request.ExpireTime
                 );
 
             await _appointmentRepository.AddAsync(appointment);

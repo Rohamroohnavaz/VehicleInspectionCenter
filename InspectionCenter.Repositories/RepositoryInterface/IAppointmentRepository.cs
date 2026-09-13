@@ -17,5 +17,7 @@ namespace InspectionCenter.Repositories.RepositoryInterface
         Task<Appointment?> GetAppointmentByCarIdAsync(Guid carId);
 
         Task<Appointment?> GetAppointmentByScheduleIdAsync(Guid scheduleId);
+
+        Task<List<Appointment>> GetAppointmentByCenterIdAsync(Guid centerId);
     }
 }

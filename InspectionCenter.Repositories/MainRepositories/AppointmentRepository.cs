@@ -39,6 +39,14 @@ namespace InspectionCenter.Repositories.MainRepositories
                 .FirstOrDefaultAsync(a => a.CarId == carId);
         }
 
+        public async Task<List<Appointment>> GetAppointmentByCenterIdAsync(Guid centerId)
+        {
+            return await _dbContext.Appointments
+                .AsNoTracking()
+                .Where(a => a.CenterId == centerId)
+                .ToListAsync();
+        }
+
         public async Task<Appointment?> GetAppointmentByScheduleIdAsync(Guid scheduleId)
         {
             return await _dbContext.Appointments

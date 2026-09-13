@@ -44,6 +44,11 @@ namespace InspectionCenter.Infrastructure.Configurations
                 .WithMany(c => c.Appointments)
                 .HasForeignKey(a => a.CarId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasOne(a => a.Center)
+                .WithMany()
+                .HasForeignKey(a => a.CenterId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

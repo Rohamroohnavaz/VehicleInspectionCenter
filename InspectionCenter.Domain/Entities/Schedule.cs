@@ -31,8 +31,8 @@ namespace InspectionCenter.Domain.Entities
 
         public override void Validate()
         {
-            if (StartTime >= EndTime)
-                throw new Exception("Time Managing is not match !");
+            //if (StartTime >= EndTime)
+            //    throw new Exception("Time Managing is not match !");
         }
     }
 }

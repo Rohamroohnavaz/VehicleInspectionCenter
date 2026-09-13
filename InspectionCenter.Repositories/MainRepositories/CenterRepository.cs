@@ -21,7 +21,7 @@ namespace InspectionCenter.Repositories.MainRepositories
         {
             return await _dbContext.Centers
                 .AsQueryable()
-                .Where(c => c.IsActive == true)
+                .Where(c => c.IsActive == true && c.IsDeleted == false)
                 .ToListAsync();
         }
 

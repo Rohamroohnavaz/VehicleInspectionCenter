@@ -20,6 +20,7 @@ namespace InspectionCenter.Domain.Entities
         {
             FirstName = firstName;
             LastName = lastName;
+            PhoneNumber = phoneNumber;
             Email = email;
             Password = password;
             Age = age;

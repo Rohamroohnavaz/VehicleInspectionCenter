@@ -21,6 +21,8 @@ namespace InspectionCenter.Application.ServiceInterfaces
 
         Task<List<ScheduleDto>> GetSchedulesWithCenterId(Guid centerId);
 
-        //Task<List<CarDto>> GetUserCarsByNameAsync(string firstName);
+        Task<List<CenterDto>> GetActiveCentersAsync();
+
+        Task ApplyAppointmentAsync(CreateAppointmentDto request);
     }
 }

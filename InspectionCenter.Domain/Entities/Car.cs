@@ -13,10 +13,10 @@ namespace InspectionCenter.Domain.Entities
     {
         public Car()
         {
-            
+
         }
 
-        public Car(string carName, string carModel, string chassisNumber,string plateNumber)
+        public Car(string carName, string carModel, string chassisNumber, string plateNumber)
         {
             CarName = carName;
             CarModel = carModel;
@@ -53,7 +53,7 @@ namespace InspectionCenter.Domain.Entities
         {
             Id = id;
         }
-        
+
         public void SetIsActive()
         {
             IsActive = true;

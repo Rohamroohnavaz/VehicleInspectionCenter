@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace InspectionCenter.Application.ServiceInterfaces
 {
-    public interface IAppointmentService
+    public interface IGetEmptyTimeSpacesService
     {
-        Task<Guid> CreateAppointmentAsync(CreateAppointmentDto dto);
+        Task<List<ScheduleDto>> GetEmptyTimeSpaceAsync(Guid centerId ,DateTime date);
     }
 }

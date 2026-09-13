@@ -19,14 +19,17 @@ namespace InspectionCenter.Application.MainServices
         private readonly IUserRepository _userRepository;
         private readonly IProvinceRepository _provinceRepository;
         private readonly IScheduleRepository _scheduleRepository;
+        private readonly IAppointmentService _appointmentService;
 
         public UserService(IUserRepository userRepository
             , IProvinceRepository provinceRepository
-            , IScheduleRepository scheduleRepository)
+            , IScheduleRepository scheduleRepository
+            , IAppointmentService appointmentService)
         {
             _userRepository = userRepository;
             _provinceRepository = provinceRepository;
             _scheduleRepository = scheduleRepository;
+            _appointmentService = appointmentService;
         }
 
         public async Task<Car?> AddCarsByChassisNumberAsync(string chassisNumber)
@@ -35,6 +38,34 @@ namespace InspectionCenter.Application.MainServices
             await _userRepository.AddCarsAsync(newCar);
 
             return newCar;
+        }
+
+        public async Task ApplyAppointmentAsync(CreateAppointmentDto request)
+        {
+            var appointmentRequest = await _appointmentService.CreateAppointmentAsync(request);
+
+            if(appointmentRequest == Guid.Empty)
+                return;
+
+            if (request.Capacity < 1)
+                throw new ArgumentException("We don't have capacity for this appointment");
+        }
+
+        public async Task<List<CenterDto>> GetActiveCentersAsync()
+        {
+            var centers = await _userRepository.GetActiveAndAvailableCentersAsync();
+
+            if (centers.Count == 0)
+                return null;
+
+            return centers.Select(x => new CenterDto
+            {
+                Name = x.CenterName,
+                Address = x.Address,
+                Capacity = x.Capacity,
+                LineCount = x.LineCount,
+                Report = x.Report
+            }).ToList();
         }
 
         public async Task<List<Province>> GetProvincesForUserAsync()
@@ -103,10 +134,5 @@ namespace InspectionCenter.Application.MainServices
             user.UpdateUserInfo(dto.Email, dto.Password, dto.PhoneNumber, dto.UserRole);
             await _userRepository.UpdateAsync(user.Id);
         }
-
-        //public Task<List<CarDto>> GetUserCarsByNameAsync(string firstName)
-        //{
-
-        //}
     }
 }
