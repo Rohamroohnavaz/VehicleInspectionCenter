@@ -22,6 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\InspectionCenter.Application\InspectionCenter.Application.csproj" />
     <ProjectReference Include="..\InspectionCenter.Infrastructure\InspectionCenter.Infrastructure.csproj" />
   </ItemGroup>
 
