@@ -10,5 +10,7 @@ namespace InspectionCenter.Application.ServiceInterfaces
     public interface IAppointmentService
     {
         Task<Guid> CreateAppointmentAsync(CreateAppointmentDto dto);
+
+        Task<List<AppointmentDto>> GetAvailableAppointments(Guid centerId);
     }
 }

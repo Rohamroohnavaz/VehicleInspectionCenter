@@ -68,6 +68,20 @@ namespace InspectionCenter.Application.MainServices
             }).ToList();
         }
 
+        public async Task<List<AppointmentDto>> GetAvailableAppointmentsAsync()
+        {
+            var appointments = await _userRepository.GetActiveAppointmentsAsync();
+
+            return appointments.Select(x => new AppointmentDto
+            {
+                ResultText = x.ResultText,
+                Capacity = x.Capacity,
+                CarId = x.CarId,
+                CenterId = x.CenterId,
+                ExpireTime = x.ExpireTime
+            }).ToList();
+        }
+
         public async Task<List<Province>> GetProvincesForUserAsync()
         {
             var provinces = await _userRepository.GetSpecificProvincesAsync();

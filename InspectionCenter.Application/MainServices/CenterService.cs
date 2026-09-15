@@ -18,6 +18,20 @@ namespace InspectionCenter.Application.MainServices
             _centerRepository = centerRepository;
         }
 
+        public async Task<List<CenterDto>> GetActiveCentersAsync()
+        {
+            var centers = await _centerRepository.GetActiveCentersAsync();
+
+            return centers.Select(x => new CenterDto
+            {
+                Name = x.CenterName,
+                Address = x.Address,
+                Capacity = x.Capacity,
+                LineCount = x.LineCount,
+                Report = x.Report
+            }).ToList();
+        }
+
         public async Task<List<CenterDto>> GetCentersByCityIdAsync(Guid cityId)
         {
             var centers = await _centerRepository.GetCentersByCityId(cityId);

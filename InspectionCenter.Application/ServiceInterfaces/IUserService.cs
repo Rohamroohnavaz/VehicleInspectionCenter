@@ -24,5 +24,7 @@ namespace InspectionCenter.Application.ServiceInterfaces
         Task<List<CenterDto>> GetActiveCentersAsync();
 
         Task ApplyAppointmentAsync(CreateAppointmentDto request);
+
+        Task<List<AppointmentDto>> GetAvailableAppointmentsAsync();
     }
 }

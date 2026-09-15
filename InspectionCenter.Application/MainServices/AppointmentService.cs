@@ -47,5 +47,19 @@ namespace InspectionCenter.Application.MainServices
 
             return request.CarId;
         }
+
+        public async Task<List<AppointmentDto>> GetAvailableAppointments(Guid centerId)
+        {
+            var appointments = await _appointmentRepository.GetActiveAppointmentsAsync();
+
+            return appointments.Select(x => new AppointmentDto
+            {
+                ResultText = x.ResultText,
+                Capacity = x.Capacity,
+                CenterId = centerId,
+                CarId = x.CarId,
+                ExpireTime = x.ExpireTime
+            }).ToList();
+        }
     }
 }

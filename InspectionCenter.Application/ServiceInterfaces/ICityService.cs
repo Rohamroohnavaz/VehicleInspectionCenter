@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace InspectionCenter.Application.ServiceInterfaces
 {
-    public interface ICenterService
+    public interface ICityService
     {
-        Task<List<CenterDto>> GetCentersByCityIdAsync(Guid cityId);
-
-        Task<List<CenterDto>> GetActiveCentersAsync();
+        Task<List<GetCityDto>> GetAllOfCitiesOfProvinceAsync(Guid provinceId);
     }
 }
