@@ -32,13 +32,9 @@ namespace InspectionCenter.Application.MainServices
             _appointmentService = appointmentService;
         }
 
-        public async Task<Car?> AddCarsByChassisNumberAsync(string chassisNumber)
-        {
-            var newCar = await _userRepository.AddCarWithChassisNumberAsync(chassisNumber);
-            await _userRepository.AddCarsAsync(newCar);
-
-            return newCar;
-        }
+        //public async Task AddCarsByChassisNumberAsync(CarDto dto)
+        //{
+        //}
 
         public async Task ApplyAppointmentAsync(CreateAppointmentDto request)
         {

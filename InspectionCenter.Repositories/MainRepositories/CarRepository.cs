@@ -18,6 +18,14 @@ namespace InspectionCenter.Repositories.MainRepositories
         {
         }
 
+        public async Task AddCarWithInfoAsync(Car entity)
+        {
+            var car = new Car(entity.CarName ,entity.CarModel ,entity.ChassisNumber ,entity.PlateNumber);
+
+            await _dbContext.AddAsync(car);
+            await _dbContext.SaveChangesAsync();
+        }
+
         public async Task<bool> ExistCarByChassisNumber(string chassisNumber)
         {
             return await _dbContext.Cars
@@ -63,7 +71,6 @@ namespace InspectionCenter.Repositories.MainRepositories
                 CarModel = c.CarModel,
                 ChassisNumber = c.ChassisNumber,
                 PlateNumber = c.PlateNumber,
-                OwnerId = c.OwnerId,
             }).ToListAsync();
         }
     }

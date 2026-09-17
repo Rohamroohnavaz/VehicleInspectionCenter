@@ -20,7 +20,19 @@ namespace InspectionCenter.Application.MainServices
             _carRepository = carRepository;
         }
 
-        public async Task AddCarWithChassisNumber(AddCarDto dto ,Guid userId)
+        public async Task AddCarByInfoAsync(CarDto dto)
+        {
+            var existCar = await _carRepository.ExistCarByChassisNumber(dto.ChassisNumber);
+
+            if (existCar)
+                throw new Exception("This car already exist in system !!");
+
+            var car = new Car(dto.CarName, dto.CarModel, dto.ChassisNumber, dto.PlateNumber);
+
+            await _carRepository.AddCarWithInfoAsync(car);
+        }
+
+        public async Task AddCarWithChassisNumber(AddCarDto dto, Guid userId)
         {
             var existCar = await _carRepository.ExistCarByChassisNumber(dto.ChassisNumber);
 

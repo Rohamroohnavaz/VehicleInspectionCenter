@@ -13,6 +13,6 @@ namespace InspectionCenter.Repositories.RepoDtos
         public string CarModel { get; set; }
         public string ChassisNumber { get; set; }
         public string PlateNumber { get; set; }
-        public Guid OwnerId { get; set; }
+       // public Guid OwnerId { get; set; }
     }
 }

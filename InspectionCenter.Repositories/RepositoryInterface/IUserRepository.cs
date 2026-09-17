@@ -14,7 +14,7 @@ namespace InspectionCenter.Repositories.RepositoryInterface
     {
         //Task<Guid> RegisterUser(string email, string password, string phoneNumber);
 
-        Task<Car?> AddCarWithChassisNumberAsync(string chassisNumber);
+        //Task AddCarWithChassisNumberAsync(Car entity);
 
         Task<User> FindByNameAsync(string firstName);
 
@@ -30,7 +30,7 @@ namespace InspectionCenter.Repositories.RepositoryInterface
 
         Task<List<UserInfoDto>> GetAllUsersAsync();
 
-        Task AddCarsAsync(Car? car);
+        //Task AddCarsAsync(Car? car);
 
         Task<List<Appointment>> GetActiveAppointmentsAsync();
 

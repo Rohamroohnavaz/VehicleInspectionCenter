@@ -21,19 +21,18 @@ namespace InspectionCenter.Repositories.MainRepositories
         {
         }
 
-        public async Task AddCarsAsync(Car? car)
-        {
-            await _dbContext.AddAsync(car);
-            await _dbContext.SaveChangesAsync();
-        }
+        //public async Task AddCarsAsync(Car? car)
+        //{
+        //    await _dbContext.AddAsync(car);
+        //    await _dbContext.SaveChangesAsync();
+        //}
 
-        public async Task<Car?> AddCarWithChassisNumberAsync(string chassisNumber)
-        {
-            return await _dbContext.Cars
-                .AsNoTracking()
-                .Where(u => u.ChassisNumber == chassisNumber)
-                .FirstAsync();
-        }
+        //public async Task AddCarWithChassisNumberAsync(Car entity)
+        //{
+        //    var car = new Car(entity.CarName, entity.CarModel, entity.ChassisNumber, entity.PlateNumber);
+
+        //    await _dbContext.AddAsync(car);
+        //}
 
         public async Task<bool> ExistUserByEmailAsync(string email)
         {
@@ -106,11 +105,11 @@ namespace InspectionCenter.Repositories.MainRepositories
                          && u.UserRole.ToString() == "Admin")
                 .Select(x => new UserInfoDto
                 {
-                  FirstName = x.FirstName,
-                  LastName = x.LastName,
-                  Email = x.Email,
-                  PhoneNumber = x.PhoneNumber,
-                  CreatedAt = x.CreatedAt
+                    FirstName = x.FirstName,
+                    LastName = x.LastName,
+                    Email = x.Email,
+                    PhoneNumber = x.PhoneNumber,
+                    CreatedAt = x.CreatedAt
                 })
                 .OrderByDescending(u => u.CreatedAt)
                 .ToListAsync();

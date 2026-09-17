@@ -11,7 +11,7 @@ namespace InspectionCenter.Application.ServiceInterfaces
 {
     public interface IUserService
     {
-        Task<Car?> AddCarsByChassisNumberAsync(string chassisNumber);
+        //Task AddCarsByChassisNumberAsync(string chassisNumber);
 
         Task<List<Province>> GetProvincesForUserAsync();
 

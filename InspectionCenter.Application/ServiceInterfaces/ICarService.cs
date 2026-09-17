@@ -11,6 +11,8 @@ namespace InspectionCenter.Application.ServiceInterfaces
 {
     public interface ICarService
     {
+        Task AddCarByInfoAsync(CarDto dto);
+
         Task AddCarWithChassisNumber(AddCarDto dto, Guid userId);
 
         Task<List<CarDto>> GetCarForUserAsync(Guid ownerId);
