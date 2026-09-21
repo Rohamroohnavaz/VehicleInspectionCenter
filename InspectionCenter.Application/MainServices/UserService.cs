@@ -32,10 +32,6 @@ namespace InspectionCenter.Application.MainServices
             _appointmentService = appointmentService;
         }
 
-        //public async Task AddCarsByChassisNumberAsync(CarDto dto)
-        //{
-        //}
-
         public async Task ApplyAppointmentAsync(CreateAppointmentDto request)
         {
             var appointmentRequest = await _appointmentService.CreateAppointmentAsync(request);
@@ -47,42 +43,42 @@ namespace InspectionCenter.Application.MainServices
                 throw new ArgumentException("We don't have capacity for this appointment");
         }
 
-        public async Task<List<CenterDto>> GetActiveCentersAsync()
-        {
-            var centers = await _userRepository.GetActiveAndAvailableCentersAsync();
+        //public async Task<List<CenterDto>> GetActiveCentersAsync()
+        //{
+        //    var centers = await _userRepository.GetActiveAndAvailableCentersAsync();
 
-            if (centers.Count == 0)
-                return null;
+        //    if (centers.Count == 0)
+        //        return null;
 
-            return centers.Select(x => new CenterDto
-            {
-                Name = x.CenterName,
-                Address = x.Address,
-                Capacity = x.Capacity,
-                LineCount = x.LineCount,
-                Report = x.Report
-            }).ToList();
-        }
+        //    return centers.Select(x => new CenterDto
+        //    {
+        //        Name = x.CenterName,
+        //        Address = x.Address,
+        //        Capacity = x.Capacity,
+        //        LineCount = x.LineCount,
+        //        Report = x.Report
+        //    }).ToList();
+        //}
 
-        public async Task<List<AppointmentDto>> GetAvailableAppointmentsAsync()
-        {
-            var appointments = await _userRepository.GetActiveAppointmentsAsync();
+        //public async Task<List<AppointmentDto>> GetAvailableAppointmentsAsync()
+        //{
+        //    var appointments = await _userRepository.GetActiveAppointmentsAsync();
 
-            return appointments.Select(x => new AppointmentDto
-            {
-                ResultText = x.ResultText,
-                Capacity = x.Capacity,
-                CarId = x.CarId,
-                CenterId = x.CenterId,
-                ExpireTime = x.ExpireTime
-            }).ToList();
-        }
+        //    return appointments.Select(x => new AppointmentDto
+        //    {
+        //        ResultText = x.ResultText,
+        //        Capacity = x.Capacity,
+        //        CarId = x.CarId,
+        //        CenterId = x.CenterId,
+        //        ExpireTime = x.ExpireTime
+        //    }).ToList();
+        //}
 
-        public async Task<List<Province>> GetProvincesForUserAsync()
-        {
-            var provinces = await _userRepository.GetSpecificProvincesAsync();
-            return provinces;
-        }
+        //public async Task<List<Province>> GetProvincesForUserAsync()
+        //{
+        //    var provinces = await _userRepository.GetSpecificProvincesAsync();
+        //    return provinces;
+        //}
 
         public async Task<List<ScheduleDto>> GetSchedulesWithCenterId(Guid centerId)
         {

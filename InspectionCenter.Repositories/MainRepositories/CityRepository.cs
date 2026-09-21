@@ -31,5 +31,14 @@ namespace InspectionCenter.Repositories.MainRepositories
                 .AsNoTracking()
                 .FirstOrDefaultAsync(c => c.CityName == cityName);
         }
+
+        public async Task<List<City>> GetSpecificCitiesAsync()
+        {
+            return await _dbContext.Cities
+                .AsNoTracking()
+                .Where(c => c.IsDeleted == false)
+                .OrderByDescending(c => c.CityName)
+                .ToListAsync();
+        }
     }
 }

@@ -40,7 +40,7 @@ namespace InspectionCenter.Repositories.MainRepositories
                 .FirstOrDefaultAsync(c => c.ChassisNumber == chassisNumber);
         }
 
-        public async Task<List<Car>> GetCarByOwnerIdAsync(Guid ownerId)
+        public async Task<List<Car>> GetCarsByOwnerIdAsync(Guid ownerId)
         {
             return await _dbContext.Cars
                 .AsNoTracking()
@@ -72,6 +72,14 @@ namespace InspectionCenter.Repositories.MainRepositories
                 ChassisNumber = c.ChassisNumber,
                 PlateNumber = c.PlateNumber,
             }).ToListAsync();
+        }
+
+        public async Task<Car?> GetCarByOwnerIdAsync(Guid ownerId)
+        {
+            return await _dbContext.Cars
+                .AsNoTracking()
+                .Where(c => c.OwnerId == ownerId && c.IsDeleted == false)
+                .FirstOrDefaultAsync();
         }
     }
 }

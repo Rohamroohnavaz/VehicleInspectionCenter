@@ -6,7 +6,7 @@ using WebLayer.Models;
 namespace WebLayer.Controllers
 {
     [ApiController]
-    [Route("api/user")]
+    [Route("/Inspection/user")]
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;

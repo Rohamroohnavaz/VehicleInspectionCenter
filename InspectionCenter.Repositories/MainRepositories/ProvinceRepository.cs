@@ -23,5 +23,14 @@ namespace InspectionCenter.Repositories.MainRepositories
                 .AsNoTracking()
                 .FirstOrDefaultAsync(p => p.ProvinceName == provinceName);
         }
+
+        public async Task<List<Province>> GetSpecificProvincesAsync()
+        {
+            return await _dbContext.Provinces
+                .AsNoTracking()
+                .Where(p => p.IsDeleted == false)
+                .OrderByDescending(p => p.ProvinceName)
+                .ToListAsync();
+        }
     }
 }

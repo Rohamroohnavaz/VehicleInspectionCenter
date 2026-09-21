@@ -13,18 +13,18 @@ namespace InspectionCenter.Application.ServiceInterfaces
     {
         //Task AddCarsByChassisNumberAsync(string chassisNumber);
 
-        Task<List<Province>> GetProvincesForUserAsync();
+        //Task<List<Province>> GetProvincesForUserAsync();
 
         Task<Guid> RegisterUserAsync(CreateUserDto dto);
 
         Task UpdateUserInfoAsync(UpdateUserDto dto, Guid id);
 
-        Task<List<ScheduleDto>> GetSchedulesWithCenterId(Guid centerId);
+        //Task<List<ScheduleDto>> GetSchedulesWithCenterId(Guid centerId);
 
-        Task<List<CenterDto>> GetActiveCentersAsync();
+        //Task<List<CenterDto>> GetActiveCentersAsync();
 
         Task ApplyAppointmentAsync(CreateAppointmentDto request);
 
-        Task<List<AppointmentDto>> GetAvailableAppointmentsAsync();
+        //Task<List<AppointmentDto>> GetAvailableAppointmentsAsync();
     }
 }

@@ -11,5 +11,7 @@ namespace InspectionCenter.Repositories.RepositoryInterface
     public interface IProvinceRepository : IGenericRepository<Province>
     {
         Task<Province?> FindByProvinceNameAsync(string provinceName);
+
+        Task<List<Province>> GetSpecificProvincesAsync();
     }
 }

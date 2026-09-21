@@ -8,5 +8,6 @@ namespace InspectionCenter.Application.ServiceInterfaces
 {
     public interface IScheduleService
     {
+        Task<bool> CheckScheduleCapacityAsync(Guid centerId);
     }
 }

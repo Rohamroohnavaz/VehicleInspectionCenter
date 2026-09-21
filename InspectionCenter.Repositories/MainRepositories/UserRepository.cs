@@ -59,7 +59,7 @@ namespace InspectionCenter.Repositories.MainRepositories
                 .FirstOrDefaultAsync(x => x.FirstName == firstName);
 
             if (user == null)
-                throw new ArgumentNullException($"{nameof(user)} can't be null");
+                throw new ArgumentNullException($"{nameof(user)} Not found ! It's null");
 
             return user;
         }
@@ -70,31 +70,10 @@ namespace InspectionCenter.Repositories.MainRepositories
                 .AsNoTracking()
                 .FirstOrDefaultAsync(x => x.PhoneNumber == phoneNumber);
 
+            if (user is null)
+                throw new ArgumentNullException($"{nameof(user)} Not found ! It's null");
+
             return user;
-        }
-
-        public async Task<List<VehicleInspectionCenter>> GetActiveAndAvailableCentersAsync()
-        {
-            return await _dbContext.Centers
-                .AsNoTracking()
-                .Where(c => c.IsActive == true && c.IsDeleted == false)
-                .ToListAsync();
-        }
-
-        public async Task<List<Appointment>> GetActiveAppointmentsAsync()
-        {
-            var activeAppointments = await _dbContext.Appointments
-                .AsNoTracking()
-                .Where(a => a.Status.ToString() == Status.Active.ToString()
-                    && a.IsDeleted == false
-                    && a.IsPassed == true
-                    && a.ReserveStatus == ReserveStatus.IsNotReserve)
-                .ToListAsync();
-
-            if (activeAppointments is null)
-                throw new ArgumentNullException("Active appointments not found !");
-
-            return activeAppointments;
         }
 
         public async Task<List<UserInfoDto>> GetAllUsersAsync()
@@ -113,17 +92,6 @@ namespace InspectionCenter.Repositories.MainRepositories
                 })
                 .OrderByDescending(u => u.CreatedAt)
                 .ToListAsync();
-        }
-
-        public async Task<List<Province>> GetSpecificProvincesAsync()
-        {
-            var specificProvinces = await _dbContext.Provinces
-                .AsNoTracking()
-                .Where(p => p.IsDeleted == false)
-                .OrderBy(p => p.ProvinceName)
-                .ToListAsync();
-
-            return specificProvinces;
         }
 
         public async Task<List<User>> GetUsersByRoleAsync(string userRole)

@@ -10,6 +10,18 @@ namespace InspectionCenter.Application.MainServices
 {
     public class ScheduleService : IScheduleService
     {
+        private readonly IScheduleRepository _scheduleRepository;
 
+        public ScheduleService(IScheduleRepository scheduleRepository)
+        {
+            _scheduleRepository = scheduleRepository;
+        }
+
+        public async Task<bool> CheckScheduleCapacityAsync(Guid centerId)
+        {
+            var schedules = await _scheduleRepository.GetSchedulsByCenterIdAsync(centerId);
+
+            return true;
+        }
     }
 }

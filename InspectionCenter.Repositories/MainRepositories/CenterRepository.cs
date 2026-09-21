@@ -25,18 +25,22 @@ namespace InspectionCenter.Repositories.MainRepositories
                 .ToListAsync();
         }
 
-        public async Task<VehicleInspectionCenter?> GetCenterByCityId(Guid cityId)
+        public async Task<VehicleInspectionCenter?> GetACenterByCityId(Guid cityId)
         {
             return await _dbContext.Centers
                 .AsNoTracking()
-                .FirstOrDefaultAsync(c => c.CityId == cityId);
+                .FirstOrDefaultAsync(c => c.CityId == cityId
+                               && c.IsDeleted == false
+                               && c.IsActive == true);
         }
 
         public async Task<List<VehicleInspectionCenter>> GetCentersByCityId(Guid cityId)
         {
             return await _dbContext.Centers
                 .AsNoTracking()
-                .Where(c => c.CityId == cityId && c.IsActive == true)
+                .Where(c => c.CityId == cityId 
+                       && c.IsDeleted == false
+                       && c.IsActive == true)
                 .ToListAsync();
         }
     }

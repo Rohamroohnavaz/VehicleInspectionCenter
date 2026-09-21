@@ -29,13 +29,5 @@ namespace InspectionCenter.Repositories.RepositoryInterface
         Task<List<User>> GetUsersByRoleAsync(string userRole);
 
         Task<List<UserInfoDto>> GetAllUsersAsync();
-
-        //Task AddCarsAsync(Car? car);
-
-        Task<List<Appointment>> GetActiveAppointmentsAsync();
-
-        Task<List<Province>> GetSpecificProvincesAsync();
-
-        Task<List<VehicleInspectionCenter>> GetActiveAndAvailableCentersAsync();
     }
 }

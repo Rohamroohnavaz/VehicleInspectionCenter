@@ -12,7 +12,7 @@ namespace InspectionCenter.Repositories.RepositoryInterface
     {
         Task<List<VehicleInspectionCenter>> GetActiveCentersAsync();
 
-        Task<VehicleInspectionCenter?> GetCenterByCityId(Guid cityId);
+        Task<VehicleInspectionCenter?> GetACenterByCityId(Guid cityId);
 
         Task<List<VehicleInspectionCenter>> GetCentersByCityId(Guid cityId);
     }

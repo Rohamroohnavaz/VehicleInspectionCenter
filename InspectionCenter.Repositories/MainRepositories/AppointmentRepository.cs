@@ -27,8 +27,12 @@ namespace InspectionCenter.Repositories.MainRepositories
         public async Task<List<Appointment>> GetActiveAppointmentsAsync()
         {
             return await _dbContext.Appointments
+                .AsNoTracking()
                 .OrderByDescending(a => a.CreatedAt)
-                .Where(a => a.Status == Status.Active)
+                .Where(a => a.Status == Status.Active 
+                      && a.IsDeleted == false
+                      && a.IsPassed == true
+                      && a.ReserveStatus == ReserveStatus.IsNotReserve)
                 .ToListAsync();
         }
 
