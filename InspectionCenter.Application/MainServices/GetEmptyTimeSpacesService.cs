@@ -1,5 +1,6 @@
 ﻿using InspectionCenter.Application.ServiceDtos;
 using InspectionCenter.Application.ServiceInterfaces;
+using InspectionCenter.Domain.Entities;
 using InspectionCenter.Repositories.RepositoryInterface;
 using Microsoft.EntityFrameworkCore.Storage.Json;
 using System;

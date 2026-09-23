@@ -57,5 +57,22 @@ namespace InspectionCenter.Repositories.MainRepositories
                 .AsNoTracking()
                 .FirstOrDefaultAsync(a => a.ScheduleId == scheduleId);
         }
+
+        public async Task<Appointment?> GetAppointmentWithSchedule(Guid scheduleId)
+        {
+            return await _dbContext.Appointments
+                .AsNoTracking()
+                .Include(a => a.Schedule)
+                .Where(a => a.ScheduleId == scheduleId)
+                .FirstOrDefaultAsync();
+        }
+
+        public async Task<bool> IsReserveAsync(Guid scheduleId)
+        {
+            return await _dbContext.Appointments
+                .AsNoTracking()
+                .AnyAsync(a => a.ScheduleId == scheduleId
+                && a.ReserveStatus == ReserveStatus.IsReserve);
+        }
     }
 }

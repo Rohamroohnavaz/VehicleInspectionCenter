@@ -1,5 +1,6 @@
 ﻿using InspectionCenter.Domain.Entities;
 using InspectionCenter.Repositories.MainRepositories.GenericRepo;
+using InspectionCenter.Repositories.RepoDtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,8 +13,8 @@ namespace InspectionCenter.Repositories.RepositoryInterface
     {
         Task<List<VehicleInspectionCenter>> GetActiveCentersAsync();
 
-        Task<VehicleInspectionCenter?> GetACenterByCityId(Guid cityId);
+        Task<GetCenterDto?> GetACenterByCityIdAsync(Guid cityId);
 
-        Task<List<VehicleInspectionCenter>> GetCentersByCityId(Guid cityId);
+        Task<List<VehicleInspectionCenter>> GetCentersByCityIdAsync(Guid cityId);
     }
 }

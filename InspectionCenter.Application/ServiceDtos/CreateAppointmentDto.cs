@@ -11,9 +11,8 @@ namespace InspectionCenter.Application.ServiceDtos
     {
         public string ResultText { get; set; }
         public int Capacity { get; set; }
-        public Car Car { get; set; }
         public Guid CarId { get; set; }
-        public Schedule Schedule { get; set; }
+        public Guid CenterId { get; set; }
         public Guid ScheduleId { get; set; }
         public DateTime ExpireTime { get; set; }
     }

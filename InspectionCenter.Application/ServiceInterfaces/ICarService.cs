@@ -15,6 +15,6 @@ namespace InspectionCenter.Application.ServiceInterfaces
 
         Task AddCarWithChassisNumber(AddCarDto dto, Guid userId);
 
-        Task<List<CarDto>> GetCarForUserAsync(Guid ownerId);
+        Task<List<CarDto>> GetCarsForUserAsync(Guid ownerId);
     }
 }

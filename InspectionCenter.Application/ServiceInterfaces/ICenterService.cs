@@ -1,4 +1,5 @@
 ﻿using InspectionCenter.Application.ServiceDtos;
+using InspectionCenter.Repositories.RepoDtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,5 +13,7 @@ namespace InspectionCenter.Application.ServiceInterfaces
         Task<List<CenterDto>> GetCentersByCityIdAsync(Guid cityId);
 
         Task<List<CenterDto>> GetActiveCentersAsync();
+
+        Task<GetCenterDto?> GetActiveCenterByIdAsync(Guid cityId);
     }
 }

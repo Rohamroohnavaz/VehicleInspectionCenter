@@ -1,6 +1,7 @@
 ﻿using InspectionCenter.Domain.Entities;
 using InspectionCenter.Infrastructure.Context;
 using InspectionCenter.Repositories.MainRepositories.GenericRepo;
+using InspectionCenter.Repositories.RepoDtos;
 using InspectionCenter.Repositories.RepositoryInterface;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -25,16 +26,23 @@ namespace InspectionCenter.Repositories.MainRepositories
                 .ToListAsync();
         }
 
-        public async Task<VehicleInspectionCenter?> GetACenterByCityId(Guid cityId)
+        public async Task<GetCenterDto?> GetACenterByCityIdAsync(Guid cityId)
         {
             return await _dbContext.Centers
                 .AsNoTracking()
-                .FirstOrDefaultAsync(c => c.CityId == cityId
-                               && c.IsDeleted == false
-                               && c.IsActive == true);
+                .Where(c => c.IsActive == true && c.IsDeleted == false && c.CityId == cityId)
+                .Select(c => new GetCenterDto
+                {
+                    Name = c.CenterName,
+                    Address = c.Address,
+                    Capacity = c.Capacity,
+                    LineCount = c.LineCount,
+                    Report = c.Report
+                }).FirstOrDefaultAsync();
+                
         }
 
-        public async Task<List<VehicleInspectionCenter>> GetCentersByCityId(Guid cityId)
+        public async Task<List<VehicleInspectionCenter>> GetCentersByCityIdAsync(Guid cityId)
         {
             return await _dbContext.Centers
                 .AsNoTracking()

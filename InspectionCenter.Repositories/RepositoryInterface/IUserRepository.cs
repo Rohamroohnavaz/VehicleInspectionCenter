@@ -18,7 +18,9 @@ namespace InspectionCenter.Repositories.RepositoryInterface
 
         Task<User> FindByNameAsync(string firstName);
 
-        Task<User?> FindByPhoneNumberAsync(string phoneNumber);
+        Task<User> FindByEmailAsync(string email);
+
+        Task<User> FindByPhoneNumberAsync(string phoneNumber);
 
         Task<bool> ExistUserByEmailAsync(string email);
 

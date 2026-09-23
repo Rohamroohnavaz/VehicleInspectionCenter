@@ -1,6 +1,7 @@
 ﻿using InspectionCenter.Application.ServiceDtos;
 using InspectionCenter.Application.ServiceInterfaces;
 using InspectionCenter.Domain.Entities;
+using InspectionCenter.Domain.Enums;
 using InspectionCenter.Repositories.RepositoryInterface;
 using System;
 using System.Collections.Generic;
@@ -13,39 +14,48 @@ namespace InspectionCenter.Application.MainServices
     public class AppointmentService : IAppointmentService
     {
         private readonly IAppointmentRepository _appointmentRepository;
+        private readonly ICenterRepository _centerRepository;
+        private readonly IScheduleRepository _scheduleRepository;
 
-        public AppointmentService(IAppointmentRepository appointmentRepository)
+        public AppointmentService(IAppointmentRepository appointmentRepository
+            , ICenterRepository centerRepository
+            , IScheduleRepository scheduleRepository)
         {
             _appointmentRepository = appointmentRepository;
+            _centerRepository = centerRepository;
+            _scheduleRepository = scheduleRepository;
         }
 
-        public async Task<Guid> CreateAppointmentAsync(CreateAppointmentDto request)
+        public async Task CreateAppointmentAsync(CreateAppointmentDto request, Guid userId, Guid scheduleId)
         {
-            if(request is null)
-                throw new ArgumentNullException(nameof(request));
+            var car = await _appointmentRepository.GetByIdAsync(request.CarId);
+            if (car is null)
+                return;
+
+            var center = await _centerRepository.GetByIdAsync(request.CenterId);
+            if (center is null)
+                return;
+
+            var appointmentReserve = await _appointmentRepository.IsReserveAsync(scheduleId);
+            if (appointmentReserve)
+                return;
 
             if (request.CarId == Guid.Empty || request.ScheduleId == Guid.Empty)
                 throw new ArgumentException("Invalid request details !");
-
-            var existCar = await _appointmentRepository.ExistAppointmentByCarIdAsync(request.CarId);
-
-            if (existCar)
-                throw new Exception("That car is already exist at this appointment !");
 
             var appointment = new Appointment
                 (
                   request.ResultText,
                   request.Capacity,
-                  request.Car,
                   request.CarId,
-                  request.Schedule,
+                  request.CenterId,
                   request.ScheduleId,
                   request.ExpireTime
                 );
 
-            await _appointmentRepository.AddAsync(appointment);
+            appointment.ReserveStatus = ReserveStatus.IsReserve;
 
-            return request.CarId;
+            await _appointmentRepository.AddAsync(appointment);
         }
 
         public async Task<List<AppointmentDto>> GetAvailableAppointments(Guid centerId)

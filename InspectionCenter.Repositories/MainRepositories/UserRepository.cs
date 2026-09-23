@@ -52,6 +52,18 @@ namespace InspectionCenter.Repositories.MainRepositories
                 .AnyAsync(u => u.PhoneNumber == phoneNumber);
         }
 
+        public async Task<User> FindByEmailAsync(string email)
+        {
+            var user = await _dbContext.Users
+                .AsNoTracking()
+                .FirstOrDefaultAsync(u => u.Email == email);
+
+            if(user == null)
+                throw new ArgumentNullException(nameof(user));
+
+            return user;
+        }
+
         public async Task<User> FindByNameAsync(string firstName)
         {
             var user = await _dbContext.Users
@@ -64,7 +76,7 @@ namespace InspectionCenter.Repositories.MainRepositories
             return user;
         }
 
-        public async Task<User?> FindByPhoneNumberAsync(string phoneNumber)
+        public async Task<User> FindByPhoneNumberAsync(string phoneNumber)
         {
             var user = await _dbContext.Users
                 .AsNoTracking()

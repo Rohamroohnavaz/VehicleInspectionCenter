@@ -32,12 +32,9 @@ namespace InspectionCenter.Application.MainServices
             _appointmentService = appointmentService;
         }
 
-        public async Task ApplyAppointmentAsync(CreateAppointmentDto request)
+        public async Task ApplyAppointmentAsync(CreateAppointmentDto request ,Guid userId ,Guid scheduleId)
         {
-            var appointmentRequest = await _appointmentService.CreateAppointmentAsync(request);
-
-            if(appointmentRequest == Guid.Empty)
-                return;
+            await _appointmentService.CreateAppointmentAsync(request ,userId ,scheduleId);
 
             if (request.Capacity < 1)
                 throw new ArgumentException("We don't have capacity for this appointment");

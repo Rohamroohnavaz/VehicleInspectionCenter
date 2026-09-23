@@ -49,13 +49,11 @@ namespace InspectionCenter.Application.MainServices
             car.SetIsActive();
 
             await _carRepository.AddAsync(car);
-
-            Console.WriteLine("Car Added Successfuly !");
         }
 
-        public async Task<List<CarDto>> GetCarForUserAsync(Guid ownerId)
+        public async Task<List<CarDto>> GetCarsForUserAsync(Guid ownerId)
         {
-            var cars = await _carRepository.GetCarByOwnerIdAsync(ownerId);
+            var cars = await _carRepository.GetCarsByOwnerIdAsync(ownerId);
 
             return cars.Select(x => new CarDto
             {

@@ -1,5 +1,7 @@
 ﻿using InspectionCenter.Application.ServiceDtos;
 using InspectionCenter.Application.ServiceInterfaces;
+using InspectionCenter.Domain.Entities;
+using InspectionCenter.Repositories.RepoDtos;
 using InspectionCenter.Repositories.RepositoryInterface;
 using System;
 using System.Collections.Generic;
@@ -18,6 +20,12 @@ namespace InspectionCenter.Application.MainServices
             _centerRepository = centerRepository;
         }
 
+        public async Task<GetCenterDto?> GetActiveCenterByIdAsync(Guid cityId)
+        {
+            var activeCenter = await _centerRepository.GetACenterByCityIdAsync(cityId);
+            return activeCenter;
+        }
+
         public async Task<List<CenterDto>> GetActiveCentersAsync()
         {
             var centers = await _centerRepository.GetActiveCentersAsync();
@@ -34,7 +42,7 @@ namespace InspectionCenter.Application.MainServices
 
         public async Task<List<CenterDto>> GetCentersByCityIdAsync(Guid cityId)
         {
-            var centers = await _centerRepository.GetCentersByCityId(cityId);
+            var centers = await _centerRepository.GetCentersByCityIdAsync(cityId);
 
             return centers.Select(x => new CenterDto
             {

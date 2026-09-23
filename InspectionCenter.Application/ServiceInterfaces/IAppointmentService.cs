@@ -9,7 +9,7 @@ namespace InspectionCenter.Application.ServiceInterfaces
 {
     public interface IAppointmentService
     {
-        Task<Guid> CreateAppointmentAsync(CreateAppointmentDto dto);
+        Task CreateAppointmentAsync(CreateAppointmentDto request ,Guid userId ,Guid scheduleId);
 
         Task<List<AppointmentDto>> GetAvailableAppointments(Guid centerId);
     }
