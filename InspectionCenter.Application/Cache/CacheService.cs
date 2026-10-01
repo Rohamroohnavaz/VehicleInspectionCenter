@@ -26,14 +26,14 @@ namespace InspectionCenter.Application.Cache
             return JsonSerializer.Deserialize<T>(data);
         }
 
-        public async Task SetAsync<T>(string cacheKey ,T value ,TimeSpan expiry)
+        public async Task SetAsync<T>(string cacheKey, T value, TimeSpan expiry)
         {
-           var json = JsonSerializer.Serialize(value);
+            var json = JsonSerializer.Serialize(value);
 
-           await _cache.SetStringAsync(cacheKey, json ,new DistributedCacheEntryOptions()
-           {
-               AbsoluteExpirationRelativeToNow = expiry
-           }); 
+            await _cache.SetStringAsync(cacheKey, json, new DistributedCacheEntryOptions
+            {
+                AbsoluteExpirationRelativeToNow = expiry
+            });
         }
     }
 }

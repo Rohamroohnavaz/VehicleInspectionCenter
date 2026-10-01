@@ -24,9 +24,10 @@ namespace WebLayer.Controllers
         //}
 
         [HttpPost("/ApplyAppointment")]
-        public async Task<IActionResult> ApplyAppointment([FromBody] CreateAppointmentDto dto)
+        public async Task<IActionResult> ApplyAppointment([FromBody] CreateAppointmentDto dto
+            , [FromRoute] Guid userId, [FromRoute] Guid scheduleId)
         {
-            await _userService.ApplyAppointmentAsync(dto);
+            await _userService.ApplyAppointmentAsync(dto ,userId, scheduleId);
             return Ok(ResponseDto.Success());
         }
     }
