@@ -15,6 +15,7 @@ namespace InspectionCenter.Repositories.RepositoryInterface
         //Task<Guid> RegisterUser(string email, string password, string phoneNumber);
 
         //Task AddCarWithChassisNumberAsync(Car entity);
+        Task<User?> GetUserByEmailAsync(string email);
 
         Task<User> FindByNameAsync(string firstName);
 

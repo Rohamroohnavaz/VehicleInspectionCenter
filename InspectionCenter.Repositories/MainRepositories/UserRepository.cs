@@ -106,6 +106,12 @@ namespace InspectionCenter.Repositories.MainRepositories
                 .ToListAsync();
         }
 
+        public async Task<User?> GetUserByEmailAsync(string email)
+        {
+            return await _dbContext.Users
+                .FirstOrDefaultAsync(u => u.IsDeleted == false && u.Email == email);
+        }
+
         public async Task<List<User>> GetUsersByRoleAsync(string userRole)
         {
             if (Enum.TryParse<Role>(userRole, true, out Role role))
