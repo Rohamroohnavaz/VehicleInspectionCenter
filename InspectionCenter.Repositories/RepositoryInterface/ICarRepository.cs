@@ -11,8 +11,14 @@ namespace InspectionCenter.Repositories.RepositoryInterface
 {
     public interface ICarRepository : IGenericRepository<Car>
     {
+        Task AddCarWithInfoAsync(Car entity);
+
+        Task<bool> ExistCarByChassisNumber(string chassisNumber);
+
         Task<List<CarDto>> GetCarsAsync();
         
+        Task<List<Car>> GetCarsByOwnerIdAsync(Guid ownerId);
+
         Task<Car?> GetCarByOwnerIdAsync(Guid ownerId);
 
         Task<Car?> GetCarByChassisNumberAsync(string chassisNumber);

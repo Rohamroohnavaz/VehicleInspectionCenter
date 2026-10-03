@@ -13,13 +13,17 @@ namespace InspectionCenter.Domain.Entities
     {
         public Appointment()
         {
-            
+
         }
 
-        public Appointment(string resultText, int capacity, DateTime expireTime)
+        public Appointment(string resultText, int capacity, Guid carId, Guid centerId,
+             Guid scheduleId, DateTime expireTime)
         {
             ResultText = resultText;
             Capacity = capacity;
+            CarId = carId;
+            CenterId = centerId;
+            ScheduleId = scheduleId;
             ExpireTime = expireTime;
             Validate();
         }
@@ -29,11 +33,14 @@ namespace InspectionCenter.Domain.Entities
         public bool? IsPassed { get; private set; }
         public Car Car { get; private set; }
         public Guid CarId { get; private set; }
+        public VehicleInspectionCenter Center { get; private set; }
+        public Guid CenterId { get; private set; }
         public Schedule? Schedule { get; private set; }
         public Guid? ScheduleId { get; private set; }
         public DateTime ExpireTime { get; private set; }
         public DateTime? CompeletedAt { get; private set; }
         public Status Status { get; set; } = Status.Active;
+        public ReserveStatus ReserveStatus { get; set; }
 
         public override void Validate()
         {

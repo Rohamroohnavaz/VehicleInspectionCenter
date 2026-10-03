@@ -1,0 +1,68 @@
+﻿using InspectionCenter.Application.ServiceDtos;
+using InspectionCenter.Application.ServiceInterfaces;
+using InspectionCenter.Domain.Entities;
+using InspectionCenter.Repositories.RepoDtos;
+using InspectionCenter.Repositories.RepositoryInterface;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace InspectionCenter.Application.MainServices
+{
+    public class CarService : ICarService
+    {
+        private readonly ICarRepository _carRepository;
+
+        public CarService(ICarRepository carRepository)
+        {
+            _carRepository = carRepository;
+        }
+
+        public async Task AddCarByInfoAsync(CarDto dto)
+        {
+            var existCar = await _carRepository.ExistCarByChassisNumber(dto.ChassisNumber);
+
+            if (existCar)
+                throw new Exception("This car already exist in system !!");
+
+            var car = new Car(dto.CarName, dto.CarModel, dto.ChassisNumber, dto.PlateNumber);
+
+            await _carRepository.AddCarWithInfoAsync(car);
+        }
+
+        public async Task AddCarWithChassisNumber(AddCarDto dto, Guid userId)
+        {
+            var existCar = await _carRepository.ExistCarByChassisNumber(dto.ChassisNumber);
+
+            if (existCar)
+            {
+                Console.WriteLine("This car is already exist !");
+                return;
+            }
+
+            var car = new Car();
+
+            car.SetId(dto.Id);
+            car.SetChassisNumber(dto.ChassisNumber);
+            car.SetIsActive();
+
+            await _carRepository.AddAsync(car);
+        }
+
+        public async Task<List<CarDto>> GetCarsForUserAsync(Guid ownerId)
+        {
+            var cars = await _carRepository.GetCarsByOwnerIdAsync(ownerId);
+
+            return cars.Select(x => new CarDto
+            {
+                Id = x.Id,
+                CarName = x.CarName,
+                CarModel = x.CarModel,
+                ChassisNumber = x.ChassisNumber,
+                PlateNumber = x.PlateNumber,
+            }).ToList();
+        }
+    }
+}

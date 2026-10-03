@@ -14,11 +14,23 @@ namespace InspectionCenter.Repositories.MainRepositories
 {
     public class CarRepository : GenericRepository<Car>, ICarRepository
     {
-        private readonly InspectionDbContext _dbContext;
-
         public CarRepository(InspectionDbContext dbContext) : base(dbContext)
         {
-            _dbContext = dbContext;
+        }
+
+        public async Task AddCarWithInfoAsync(Car entity)
+        {
+            var car = new Car(entity.CarName ,entity.CarModel ,entity.ChassisNumber ,entity.PlateNumber);
+
+            await _dbContext.AddAsync(car);
+            await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task<bool> ExistCarByChassisNumber(string chassisNumber)
+        {
+            return await _dbContext.Cars
+                .AsNoTracking()
+                .AnyAsync(c => c.ChassisNumber == chassisNumber);
         }
 
         public async Task<Car?> GetCarByChassisNumberAsync(string chassisNumber)
@@ -28,11 +40,13 @@ namespace InspectionCenter.Repositories.MainRepositories
                 .FirstOrDefaultAsync(c => c.ChassisNumber == chassisNumber);
         }
 
-        public async Task<Car?> GetCarByOwnerIdAsync(Guid ownerId)
+        public async Task<List<Car>> GetCarsByOwnerIdAsync(Guid ownerId)
         {
             return await _dbContext.Cars
                 .AsNoTracking()
-                .FirstOrDefaultAsync(c =>  c.OwnerId == ownerId);
+                .Where(c =>  c.OwnerId == ownerId)
+                .OrderBy(c => c.CarName)
+                .ToListAsync();
         }
 
         public async Task<Car?> GetCarByPlateNumberAsync(string plateNumber)
@@ -57,8 +71,15 @@ namespace InspectionCenter.Repositories.MainRepositories
                 CarModel = c.CarModel,
                 ChassisNumber = c.ChassisNumber,
                 PlateNumber = c.PlateNumber,
-                OwnerId = c.OwnerId,
             }).ToListAsync();
+        }
+
+        public async Task<Car?> GetCarByOwnerIdAsync(Guid ownerId)
+        {
+            return await _dbContext.Cars
+                .AsNoTracking()
+                .Where(c => c.OwnerId == ownerId && c.IsDeleted == false)
+                .FirstOrDefaultAsync();
         }
     }
 }

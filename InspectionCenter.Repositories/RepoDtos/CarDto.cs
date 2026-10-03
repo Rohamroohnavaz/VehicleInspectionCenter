@@ -8,10 +8,11 @@ namespace InspectionCenter.Repositories.RepoDtos
 {
     public class CarDto
     {
+        public Guid Id { get; set; }
         public string CarName { get; set; }
         public string CarModel { get; set; }
         public string ChassisNumber { get; set; }
         public string PlateNumber { get; set; }
-        public Guid OwnerId { get; set; }
+       // public Guid OwnerId { get; set; }
     }
 }

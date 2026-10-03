@@ -14,18 +14,25 @@ namespace InspectionCenter.Repositories.MainRepositories
 {
     public class AppointmentRepository : GenericRepository<Appointment>, IAppointmentRepository
     {
-        private readonly InspectionDbContext _dbContext;
-
         public AppointmentRepository(InspectionDbContext dbContext) : base(dbContext)
         {
-            _dbContext = dbContext;
+        }
+
+        public async Task<bool> ExistAppointmentByCarIdAsync(Guid carId)
+        {
+            return await _dbContext.Appointments
+                .AnyAsync(a => a.CarId == carId);
         }
 
         public async Task<List<Appointment>> GetActiveAppointmentsAsync()
         {
             return await _dbContext.Appointments
+                .AsNoTracking()
                 .OrderByDescending(a => a.CreatedAt)
-                .Where(a => a.Status == Status.Active)
+                .Where(a => a.Status == Status.Active 
+                      && a.IsDeleted == false
+                      && a.IsPassed == true
+                      && a.ReserveStatus == ReserveStatus.IsNotReserve)
                 .ToListAsync();
         }
 
@@ -36,11 +43,36 @@ namespace InspectionCenter.Repositories.MainRepositories
                 .FirstOrDefaultAsync(a => a.CarId == carId);
         }
 
+        public async Task<List<Appointment>> GetAppointmentByCenterIdAsync(Guid centerId)
+        {
+            return await _dbContext.Appointments
+                .AsNoTracking()
+                .Where(a => a.CenterId == centerId)
+                .ToListAsync();
+        }
+
         public async Task<Appointment?> GetAppointmentByScheduleIdAsync(Guid scheduleId)
         {
             return await _dbContext.Appointments
                 .AsNoTracking()
                 .FirstOrDefaultAsync(a => a.ScheduleId == scheduleId);
+        }
+
+        public async Task<Appointment?> GetAppointmentWithSchedule(Guid scheduleId)
+        {
+            return await _dbContext.Appointments
+                .AsNoTracking()
+                .Include(a => a.Schedule)
+                .Where(a => a.ScheduleId == scheduleId)
+                .FirstOrDefaultAsync();
+        }
+
+        public async Task<bool> IsReserveAsync(Guid scheduleId)
+        {
+            return await _dbContext.Appointments
+                .AsNoTracking()
+                .AnyAsync(a => a.ScheduleId == scheduleId
+                && a.ReserveStatus == ReserveStatus.IsReserve);
         }
     }
 }

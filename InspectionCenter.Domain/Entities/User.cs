@@ -13,13 +13,14 @@ namespace InspectionCenter.Domain.Entities
     {
         public User()
         {
-            
+
         }
 
-        public User(string firstName ,string lastName ,string email ,string password ,int age)
+        public User(string firstName, string lastName, string phoneNumber, string email, string password, int age)
         {
             FirstName = firstName;
             LastName = lastName;
+            PhoneNumber = phoneNumber;
             Email = email;
             Password = password;
             Age = age;
@@ -35,9 +36,48 @@ namespace InspectionCenter.Domain.Entities
         public Role UserRole { get; private set; }
         public List<Car> Cars { get; set; } = new();
 
+        public void SetFirstName(string firstName)
+        {
+            FirstName = firstName;
+        }
+
+        public void SetLastName(string lastName)
+        {
+            LastName = lastName;
+        }
+
         public void SetRole(Role role)
         {
             UserRole = role;
+        }
+
+        public void SetEmail(string email)
+        {
+            Email = email;
+        }
+
+        public void SetPassword(string password)
+        {
+            Password = password;
+        }
+
+        public void SetPhoneNumber(string phoneNumber)
+        {
+            PhoneNumber = phoneNumber;
+        }
+
+        public void SetAge(int age)
+        {
+            Age = age;
+        }
+
+        public void UpdateUserInfo(string email, string password, string phoneNumber, Role role)
+        {
+            Email = email;
+            Password = password;
+            PhoneNumber = phoneNumber;
+            UserRole = role;
+            Validate();
         }
 
         public override void Validate()

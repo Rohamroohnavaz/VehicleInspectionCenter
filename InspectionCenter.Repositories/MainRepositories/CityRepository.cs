@@ -13,11 +13,8 @@ namespace InspectionCenter.Repositories.MainRepositories
 {
     public class CityRepository : GenericRepository<City>, ICityRepository
     {
-        private readonly InspectionDbContext _dbContext;
-
         public CityRepository(InspectionDbContext dbContext) : base(dbContext)
         {
-            _dbContext = dbContext;
         }
 
         public async Task<List<City>> GetCitiesByProvinceIdAsync(Guid provinceId)
@@ -33,6 +30,15 @@ namespace InspectionCenter.Repositories.MainRepositories
             return await _dbContext.Cities
                 .AsNoTracking()
                 .FirstOrDefaultAsync(c => c.CityName == cityName);
+        }
+
+        public async Task<List<City>> GetSpecificCitiesAsync()
+        {
+            return await _dbContext.Cities
+                .AsNoTracking()
+                .Where(c => c.IsDeleted == false)
+                .OrderByDescending(c => c.CityName)
+                .ToListAsync();
         }
     }
 }

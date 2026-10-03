@@ -13,5 +13,7 @@ namespace InspectionCenter.Repositories.RepositoryInterface
         Task<City?> GetCityByNameAsync(string cityName);
 
         Task<List<City>> GetCitiesByProvinceIdAsync(Guid provinceId);
+
+        Task<List<City>> GetSpecificCitiesAsync();
     }
 }

@@ -34,6 +34,9 @@ namespace InspectionCenter.Infrastructure.Migrations
                     b.Property<Guid>("CarId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid>("CenterId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<DateTime?>("CompeletedAt")
                         .HasColumnType("datetime2");
 
@@ -56,6 +59,9 @@ namespace InspectionCenter.Infrastructure.Migrations
                     b.Property<DateTime?>("ModifiedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("ReserveStatus")
+                        .HasColumnType("int");
+
                     b.Property<string>("ResultText")
                         .IsRequired()
                         .HasColumnType("NVARCHAR(100)");
@@ -67,6 +73,8 @@ namespace InspectionCenter.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CenterId");
 
                     b.HasIndex("ScheduleId");
 
@@ -370,12 +378,20 @@ namespace InspectionCenter.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("InspectionCenter.Domain.Entities.VehicleInspectionCenter", "Center")
+                        .WithMany()
+                        .HasForeignKey("CenterId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("InspectionCenter.Domain.Entities.Schedule", "Schedule")
                         .WithMany("Appointments")
                         .HasForeignKey("ScheduleId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Car");
+
+                    b.Navigation("Center");
 
                     b.Navigation("Schedule");
                 });

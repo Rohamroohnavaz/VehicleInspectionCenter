@@ -13,11 +13,8 @@ namespace InspectionCenter.Repositories.MainRepositories
 {
     public class ProvinceRepository : GenericRepository<Province>, IProvinceRepository
     {
-        private readonly InspectionDbContext _dbContext;
-
         public ProvinceRepository(InspectionDbContext dbContext) : base(dbContext)
         {
-            _dbContext = dbContext;
         }
 
         public async Task<Province?> FindByProvinceNameAsync(string provinceName)
@@ -25,6 +22,15 @@ namespace InspectionCenter.Repositories.MainRepositories
             return await _dbContext.Provinces
                 .AsNoTracking()
                 .FirstOrDefaultAsync(p => p.ProvinceName == provinceName);
+        }
+
+        public async Task<List<Province>> GetSpecificProvincesAsync()
+        {
+            return await _dbContext.Provinces
+                .AsNoTracking()
+                .Where(p => p.IsDeleted == false)
+                .OrderByDescending(p => p.ProvinceName)
+                .ToListAsync();
         }
     }
 }

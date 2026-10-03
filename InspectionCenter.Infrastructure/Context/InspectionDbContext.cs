@@ -13,9 +13,7 @@ namespace InspectionCenter.Infrastructure.Context
     {
         public InspectionDbContext(DbContextOptions<InspectionDbContext> options)
             : base(options)
-        {
-            
-        }
+        { }
 
         public DbSet<User> Users { get; set; }
         public DbSet<Car> Cars { get; set; }

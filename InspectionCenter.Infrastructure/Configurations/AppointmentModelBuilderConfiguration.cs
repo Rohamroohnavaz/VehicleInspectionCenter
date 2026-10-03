@@ -31,6 +31,10 @@ namespace InspectionCenter.Infrastructure.Configurations
                 .HasConversion<int>()
                 .IsRequired();
 
+            builder.Property(a => a.ReserveStatus)
+                .HasConversion<int>()
+                .IsRequired();
+
             builder.HasOne(a => a.Schedule)
                 .WithMany(s => s.Appointments)
                 .HasForeignKey(a => a.ScheduleId)
@@ -39,6 +43,11 @@ namespace InspectionCenter.Infrastructure.Configurations
             builder.HasOne(a => a.Car)
                 .WithMany(c => c.Appointments)
                 .HasForeignKey(a => a.CarId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasOne(a => a.Center)
+                .WithMany()
+                .HasForeignKey(a => a.CenterId)
                 .OnDelete(DeleteBehavior.Restrict);
         }
     }
